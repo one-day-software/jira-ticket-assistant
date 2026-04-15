@@ -190,18 +190,25 @@ async function callOpenAIAPI(summary, description, apiKey, translateLang = TRANS
 
   const prompt = generatePrompt(summary, description, translateLang);
 
+  const isReasoningEra = /^(gpt-5|o\d)/.test(model);
+  const body = {
+    model,
+    messages: [{ role: 'user', content: prompt }]
+  };
+  if (isReasoningEra) {
+    body.max_completion_tokens = API_CONFIG.OPENAI.MAX_TOKENS;
+  } else {
+    body.max_tokens = API_CONFIG.OPENAI.MAX_TOKENS;
+    body.temperature = API_CONFIG.OPENAI.TEMPERATURE;
+  }
+
   const response = await fetch(API_CONFIG.OPENAI.URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
     },
-    body: JSON.stringify({
-      model,
-      max_tokens: API_CONFIG.OPENAI.MAX_TOKENS,
-      temperature: API_CONFIG.OPENAI.TEMPERATURE,
-      messages: [{ role: 'user', content: prompt }]
-    })
+    body: JSON.stringify(body)
   });
 
   if (!response.ok) {
