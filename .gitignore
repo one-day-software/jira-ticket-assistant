@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Claude Code local settings
+.claude/
+
+# Release artifacts
+*.zip
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Node (in case build tooling gets added later)
+node_modules/

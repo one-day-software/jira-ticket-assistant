@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="static/css/sidepanel.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="static/img/icon.png" class="icon" alt="">
+      <h3 class="title">JIRA Ticket Assistant</h3>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation">
+      <button class="tab-button active" data-tab="main">Main</button>
+      <button class="tab-button" data-tab="settings">Settings</button>
+      <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Main Tab Content -->
+    <div id="main-tab" class="tab-content active">
+      <div id="status" class="status"></div>
+
+      <button id="insertTemplateBtn" class="button">📝 Use Template</button>
+      <button id="improveBtn" class="button">✨ Improve Current Ticket</button>
+
+      <div class="translate-options">
+        <label for="translateLang" class="translate-label">🌍 Translate to:</label>
+        <select id="translateLang" class="translate-select">
+          <option value="none">No Translation</option>
+          <option value="chinese">繁體中文</option>
+          <option value="english">English</option>
+        </select>
+      </div>
+
+      <div class="results-section">
+        <h4>📋 Improved Content</h4>
+        <div id="resultsContainer">
+          <div class="no-results">
+            No improved content yet. Click "Improve Current Ticket" to get started.
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <strong>💡 Tips:</strong><br>
+        <div class="tip-item">- Attached files will not be included in the reference content</div>
+        <div class="tip-item">- Please check again whether the improved content is consistent with the original
+          intention!
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Tab Content -->
+    <div id="settings-tab" class="tab-content">
+      <div class="input-group">
+        <label for="aiProvider">AI Provider:</label>
+        <select id="aiProvider">
+          <option value="anthropic">Anthropic Claude</option>
+          <option value="openai">OpenAI</option>
+          <option value="google">Google Gemini / Gemma</option>
+          <option value="ollama">Local Ollama</option>
+        </select>
+      </div>
+
+      <div class="input-group" id="ollamaEndpointGroup" style="display: none;">
+        <label for="ollamaEndpoint">Ollama Endpoint URL:</label>
+        <input type="text" id="ollamaEndpoint" placeholder="http://localhost:11434">
+      </div>
+
+      <div class="input-group">
+        <label for="apiKey" id="apiKeyLabel">Anthropic API Key:</label>
+        <input type="password" id="apiKey" placeholder="Enter your API key">
+      </div>
+
+      <div class="input-group">
+        <label for="aiModel">AI Model:</label>
+        <select id="aiModel">
+          <option value="">Loading models...</option>
+        </select>
+      </div>
+
+      <div style="border-top: 1px solid #ddd; margin: 20px 0;"></div>
+
+      <div class="input-group">
+        <label for="enableAutofill">
+          <input type="checkbox" id="enableAutofill">&nbsp;Enable Auto-fill Template ✨
+        </label>
+      </div>
+
+      <div class="input-group">
+        <label for="jiraDomains">JIRA Domains (one per line):</label>
+        <textarea id="jiraDomains" placeholder="*.example.atlassian.net" rows="4"></textarea>
+      </div>
+
+      <div class="input-group">
+        <label for="blacklistDomains">Blacklist Domains (one per line):</label>
+        <textarea id="blacklistDomains" placeholder="*/wiki/*" rows="4"></textarea>
+      </div>
+
+      <div class="input-group">
+        <label for="descriptionTemplate">Description Template (HTML format):</label>
+        <textarea id="descriptionTemplate"
+          placeholder="<p><strong>Environment:</strong></p>\n<p>Production/Staging/Development</p>\n\n<p><strong>Steps to Reproduce:</strong></p>\n<ol>\n<li>Step 1</li>\n<li>Step 2</li>\n</ol>\n\n<p><strong>Expected Result:</strong></p>\n<p>What should happen</p>\n\n<p><strong>Actual Result:</strong></p>\n<p>What actually happened</p>"
+          rows="10"></textarea>
+      </div>
+
+      <div id="settings-status" class="status"></div>
+
+      <button id="saveSettingsBtn" class="button">💾 Save Settings</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-content">
+        <img src="static/img/logo.png" class="footer-logo" alt="">
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/theme-loader.js"></script>
+  <script src="scripts/constants.js"></script>
+  <script src="scripts/crypto.js"></script>
+  <script src="sidepanel.js"></script>
+</body>
+
+</html>
